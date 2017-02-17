@@ -83,10 +83,10 @@ router.get("/scrape", function(req, res) {
         if (error) {
             console.log(error);
         } else {
-            res.redirect("/articles");
+            console.log(found)
         }
     });
-
+    res.redirect("/articles");
 });
 
 router.post("/articles/:id", function(req, res) {
