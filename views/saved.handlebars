@@ -1,14 +1,13 @@
 <nav class='nav-bar'>
     <div id="nav-toggle">&#9776;</div>
-        <div id="nav-links"><a href='/saved'>Saved Articles</a></div>
+        <div id="nav-links"><a href='/articles'>Home</a></div>
 </nav>
 {{#each info}}
-    {{#unless saved}}
-
+    {{#if saved}}
 <div class="articles">
     <div class='article-header'>L.A. NOW <span class='date'>{{date}}</span></div>
-    <div class='article-container'>
-        <img class="thumbnail" src="{{image}}">
+    <div class='article-container'><img class="thumbnail" src="{{image}}">
+
         <div id='scraped-article' data-id='{{_id}}'>
             <h3>{{title}}</h3>
             <a href='http://www.latimes.com/{{link}}'>
@@ -34,12 +33,11 @@
             <button id="leave-comment" data-id='{{_id}}'>Comment</button>
         </form>
 
-        <form class="form" method="POST" action="/save/{{_id}}?_method=PUT">
-            <button id="save-article" data-id='{{_id}}'>Save Article</button>
+        <form class="form" method="POST" action="/unsave/{{_id}}?_method=PUT">
+            <button id="delete-article" data-id='{{_id}}'>Delete Article</button>
         </form>
-
         <div class='warning'></div>
     </div>
 </div>
-    {{/unless}}
+    {{/if}}
 {{/each}}

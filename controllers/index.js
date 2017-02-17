@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express();
-const request = require("request");
-const cheerio = require("cheerio");
-const Article = require("../models/article.js");
-const Comment = require("../models/comment.js");
+var express = require('express');
+var router = express();
+var request = require("request");
+var cheerio = require("cheerio");
+var Article = require("../models/article.js");
+var Comment = require("../models/comment.js");
 var databaseUrl = "article-scraper";
 var collections = ["articles"];
 var mongojs = require("mongojs");
@@ -25,11 +25,28 @@ router.get("/articles", function(req, res) {
                 var hbsObject = {
                     info: doc
                 }
-                console.log(hbsObject)
                 res.render('articles', hbsObject);
             }
         });
 });
+
+
+router.get("/saved", function(req, res) {
+    Article.find({})
+        .sort({ time: -1 })
+        .populate('Comment')
+        .exec(function(error, doc) {
+            if (error) {
+                console.log(error);
+            } else {
+                var object = {
+                    info: doc
+                }
+                res.render('saved', object);
+            }
+        });
+});
+
 
 
 router.get("/scrape", function(req, res) {
@@ -45,6 +62,7 @@ router.get("/scrape", function(req, res) {
             result.title = $(this).children().children(".trb_outfit_relatedListTitle").children().text();
             result.link = $(this).children().attr("href");
             result.image = $(this).children().children().attr("data-baseurl");
+            result.date = $(this).find(".trb_outfit_categorySectionHeading_date").attr("data-dt");
 
             var entry = new Article(result);
 
@@ -53,7 +71,6 @@ router.get("/scrape", function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    // console.log(doc);
 
                 }
             });
@@ -90,16 +107,38 @@ router.post("/articles/:id", function(req, res) {
     });
 });
 
-router.delete("/delete/:id", (req, res) => {
-    Comment.remove({ _id: req.params.id }, function(err) {
+router.delete("/delete/:id", function(req, res) {
+    Comment.remove({ "_id": req.params.id }, function(err) {
         if (err) {
             console.log(err);
         } else {
-            res.redirect("/");
+            res.redirect("/articles");
         }
     });
 });
 
+router.put("/save/:id", function(req, res) {
+    Article.findOneAndUpdate({ "_id": req.params.id }, { 'saved': true })
+        .exec(function(err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect("/articles");
+            }
+        });
+});
+
+
+router.put("/unsave/:id", function(req, res) {
+    Article.findOneAndUpdate({ "_id": req.params.id }, { 'saved': false })
+        .exec(function(err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect("/saved");
+            }
+        });
+});
 
 
 

@@ -1,5 +1,4 @@
-const routes = require('./controllers/index');
-// Dependencies
+var routes = require('./controllers/index');
 var request = require("request"),
     cheerio = require("cheerio"),
     express = require("express"),

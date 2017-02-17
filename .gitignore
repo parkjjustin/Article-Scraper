@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+node_modules*
 
 # Runtime data
 pids
@@ -27,7 +28,6 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules
 jspm_packages
 
 # Optional npm cache directory

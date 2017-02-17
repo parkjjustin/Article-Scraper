@@ -5,6 +5,10 @@ body {
     font-size: 20px;
 }
 
+.site {
+    padding-top: 40px;
+}
+
 .thumbnail {
     width: 30%;
     margin-right: 30px;
@@ -27,8 +31,19 @@ body {
     background-color: #ccc;
     width: 60%;
     margin: 50px auto;
-    padding: 40px;
     box-sizing: border-box;
+    border: 3px solid black;
+}
+
+.article-header {
+    background-color: black;
+    width: 100%;
+    padding: 5px;
+    color: white;
+}
+
+.article-container {
+    padding: 40px;
 }
 
 input {
@@ -51,7 +66,7 @@ input {
 }
 
 .comments {
-    width: 90%;
+    width: 80%;
     word-break: break-all;
     margin: 40px auto;
 }
@@ -62,4 +77,111 @@ input {
 
 #commenter-comment {
     background-color: #fff;
+}
+
+hr {
+    margin: 3px !important;
+}
+
+#name,
+#body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#body {
+    height: 100px;
+    border-top: none;
+}
+
+.form {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#leave-comment,
+#save-article,
+#delete-article {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.nav-bar {
+    position: fixed;
+    top: 0;
+    height: 40px;
+    background-color: black;
+    width: 100%;
+    padding-top: 8px;
+}
+
+#nav-toggle {
+    color: white;
+    font-weight: 900;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+#nav-toggle:hover {
+    color: #333;
+    cursor: pointer
+}
+
+h3 {
+    font-weight: 600 !important;
+    font-size: 20px;
+    margin: 0 !important;
+}
+
+.date {
+    float: right;
+}
+
+a {
+    color: #C23045 !important;
+    transition: 0.5s;
+}
+
+a:hover {
+    color: gray !important;
+    text-decoration: none !important;
+}
+
+.warning {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+    color: red;
+    font-weight: 600;
+}
+
+#nav-links {
+    display: none;
+    font-size: 16px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+#nav-links a {
+    color: white !important;
+}
+
+#nav-links a:hover {
+    color: gray !important;
+}
+
+button {
+    border: 0;
+    background-color: black;
+    color: white !important;
+    margin-top: 1px !important;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: gray;
 }
