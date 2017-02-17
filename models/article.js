@@ -16,8 +16,7 @@ var ArticleSchema = new Schema({
         required: true
     },
     date: {
-        type: String,
-        required: true
+        type: String
     },
     saved: {
         type: Boolean,
