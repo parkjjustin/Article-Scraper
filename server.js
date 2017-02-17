@@ -16,7 +16,7 @@ var Promise = require("bluebird");
 mongoose.Promise = Promise;
 
 var app = express();
-mongoose.connect('mongodb://localhost/article-scraper');
+mongoose.connect('mongodb://heroku_x7kzrq0c:lq15v6slvd2rifbmt7st2b7b2m@ds157278.mlab.com:57278/heroku_x7kzrq0c');
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -35,8 +35,8 @@ app.use(express.static(process.cwd() + "/public"));
 app.use(methodOverride("_method"));
 
 // BodyParser Middleware
-app.use(bodyParser.json());
 app.use(logger("dev"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
