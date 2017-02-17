@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const router = express();
 const request = require("request");
 const cheerio = require("cheerio");
 const Article = require("../models/article.js");
@@ -10,10 +10,27 @@ var mongojs = require("mongojs");
 
 
 var db = mongojs(databaseUrl, collections);
+router.get("/", function(req, res) {
+    res.render("index")
+})
 
-router.get('/', (req, res) => {
-    res.render('index')
+router.get("/articles", function(req, res) {
+    Article.find({})
+        .sort({ time: -1 })
+        .limit(20).populate('Comment')
+        .exec(function(error, doc) {
+            if (error) {
+                console.log(error);
+            } else {
+                var hbsObject = {
+                    info: doc
+                }
+                console.log(hbsObject)
+                res.render('articles', hbsObject);
+            }
+        });
 });
+
 
 router.get("/scrape", function(req, res) {
 
@@ -36,7 +53,8 @@ router.get("/scrape", function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(doc);
+                    // console.log(doc);
+
                 }
             });
         });
@@ -48,20 +66,43 @@ router.get("/scrape", function(req, res) {
         if (error) {
             console.log(error);
         } else {
-            res.json(found);
+            res.redirect("/articles");
         }
     });
 
-    //     router.delete('/posts/:post', function(req, res, next) {
-    //         removePost(req.params.post, function(err, post) {
-    //             if (err)
-    //                 res.send(err);
-
-    //             res.json({ message: 'Successfully deleted' });
-    //         });
-    //     });
-
 });
+
+router.post("/articles/:id", function(req, res) {
+    var newComment = new Comment(req.body);
+    newComment.save(function(error, doc) {
+        if (error) {
+            console.log(error);
+        } else {
+            Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "Comment": doc._id } })
+                .exec(function(err, doc) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.redirect("/articles");
+                    }
+                });
+        }
+    });
+});
+
+router.delete("/delete/:id", (req, res) => {
+    Comment.remove({ _id: req.params.id }, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/");
+        }
+    });
+});
+
+
+
+
 
 
 

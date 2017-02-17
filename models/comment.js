@@ -5,10 +5,12 @@ var Schema = mongoose.Schema;
 // Create a Commentchema with the Schema class
 var CommentSchema = new Schema({
     name: {
-        type: String
+        type: String,
+        required: true
     },
     body: {
-        type: String
+        type: String,
+        required: true
     }
 });
 // Make a Comment model with the Commentchema

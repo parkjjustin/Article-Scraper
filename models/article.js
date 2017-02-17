@@ -19,10 +19,10 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
-    note: {
+    Comment: [{
         type: Schema.Types.ObjectId,
         ref: "Comment"
-    }
+    }]
 });
 
 // Create the Article model with the ArticleSchema

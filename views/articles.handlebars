@@ -1,0 +1,26 @@
+{{#each info}}
+
+<div class="articles"><img class="thumbnail" src="{{image}}">
+    <div id='scraped-article' data-id='{{_id}}'>{{title}}
+        <a href='http://www.latimes.com/{{link}}'>
+            <p class='link'>http://www.latimes.com{{link}}</p>
+        </a>
+    </div>
+    <form class="comment-form" id="form-{{_id}}" method="POST" action="/articles/{{_id}}">
+        <h1> Leave a comment about this article</h2>
+            <input data-id='{{_id}}' id='name' type='text' name='name' placeholder='Name'>
+            <input data-id='{{_id}}' id='body' type='text' name='body' placeholder='Comment'>
+
+            <button id='submit' data-id='{{_id}}'>Submit</button>
+    </form>
+
+            {{#each Comment}}
+    <div class='comments'>
+
+        <div id="commenter-name">Name: {{this.name}}</div>
+        <div id="commenter-comment">Comment:<hr>{{this.body}}</div>
+
+    </div>
+        {{/each}}
+    </div>
+ {{/each}}

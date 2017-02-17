@@ -5,13 +5,61 @@ body {
     font-size: 20px;
 }
 
-.article {
-    width: 80%;
-    margin: 30px auto;
-    text-align: center;
-    height: 100px;
-    padding-top: 35px;
+.thumbnail {
+    width: 30%;
+    margin-right: 30px;
+    display: inline-block !important;
+}
+
+#scraped-article {
+    display: inline-block !important;
+    vertical-align: top;
+    width: 60%;
+    word-break: break-all;
+}
+
+.link {
+    word-break: break-all;
+}
+
+.articles {
+    display: block;
     background-color: #ccc;
+    width: 60%;
+    margin: 50px auto;
+    padding: 40px;
     box-sizing: border-box;
-    border-radius: 10px;
+}
+
+input {
+    display: block;
+    width: 50%;
+}
+
+.comment {
+    height: 100px;
+}
+
+#logo {
+    width: 70%;
+    margin: 50px auto;
+    display: block;
+}
+
+#scrape {
+    text-align: center;
+}
+
+.comments {
+    width: 90%;
+    word-break: break-all;
+    margin: 40px auto;
+}
+
+#commenter-name {
+    background-color: #aaa;
+}
+
+#commenter-comment {
+    background-color: #fff;
 }

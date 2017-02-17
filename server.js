@@ -1,26 +1,32 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
-const exphbs = require('express-handlebars');
-const mongo = require('mongodb');
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/article-scraper');
-const db = mongoose.connection;
 const routes = require('./controllers/index');
+// Dependencies
+var request = require("request"),
+    cheerio = require("cheerio"),
+    express = require("express"),
+    bodyParser = require("body-parser"),
+    logger = require("morgan"),
+    mongoose = require("mongoose"),
+    exphbs = require("express-handlebars"),
+    methodOverride = require("method-override"),
+    PORT = PORT = process.env.PORT || 3000,
+    Comment = require("./models/comment.js"),
+    Article = require("./models/article.js"),
+    path = require('path');
 
-var Article = require("./models/article.js");
-const comment = require("./models/comment.js");
-// Our scraping tools
-var request = require("request");
-var cheerio = require("cheerio");
-// Mongoose mpromise deprecated - use bluebird promises
-// var Promise = require("bluebird");
+var Promise = require("bluebird");
+mongoose.Promise = Promise;
 
-// mongoose.Promise = Promise;
+var app = express();
+mongoose.connect('mongodb://localhost/article-scraper');
+var db = mongoose.connection;
 
-// Init App
-const app = express();
+db.on("error", function(error) {
+    console.log("Mongoose Error: ", error);
+});
+
+db.once("open", function() {
+    console.log("Mongoose connection successful.");
+});
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +37,7 @@ app.use(methodOverride("_method"));
 
 // BodyParser Middleware
 app.use(bodyParser.json());
+app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
